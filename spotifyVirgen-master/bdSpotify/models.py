@@ -50,3 +50,11 @@ class Lista(models.Model):
 
     def __str__(self):
         return f"{self.nombre} de {self.usuario.email}"
+
+
+class Temporal(models.Model):
+    idAlbum=models.IntegerField()
+    idCancion=models.IntegerField()
+
+    def __str__(self):
+        return f"{self.idAlbum} - {self.idCancion}"
