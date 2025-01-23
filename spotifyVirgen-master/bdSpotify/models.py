@@ -23,11 +23,18 @@ class Usuario(models.Model):
     def __str__(self):
         return self.email
 
+class Album (models.Model):
+    nombre = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self.nombre} {self.id}"
+
 class Cancion(models.Model):
     titulo = models.CharField(max_length=200)
     artista = models.CharField(max_length=200)
     album = models.CharField(max_length=200, null=True, blank=True)
     genero = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True, blank=True)
+    albumf = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='canciones', null=True, blank=True)
     duracion = models.IntegerField()
     fecha_lanzamiento = models.DateField()
 
