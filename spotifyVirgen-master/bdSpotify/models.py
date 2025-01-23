@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import CharField
+
 
 # Create your models here.
 
@@ -19,24 +21,22 @@ class Usuario(models.Model):
         return self.email
 
 class Album (models.Model):
-    titulo = models.CharField(max_lenght=200)
-    artista = models.CharField(max_lenght=200)
-    
+    nombre = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.titulo
+        return f"{self.nombre} {self.id}"
 
 class Cancion(models.Model):
     titulo = models.CharField(max_length=200)
     artista = models.CharField(max_length=200)
-    #album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='Album')
-    album = models.CharField(max_lenght=200)
+    album = models.CharField(max_length=200)
+    albumf = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='canciones', null=True, blank=True)
     genero = models.CharField(max_length=100, null=True, blank=True)
     duracion = models.IntegerField()
     fecha_lanzamiento = models.DateField()
 
     def __str__(self):
-        return f"{self.titulo} - {self.artista}"
+        return f"{self.titulo} - {self.artista} - {self.id}"
 
 
 class Lista(models.Model):
@@ -47,3 +47,10 @@ class Lista(models.Model):
 
     def __str__(self):
         return f"{self.nombre} de {self.usuario.email}"
+
+class Temporal(models.Model):
+    idAlbum=models.IntegerField()
+    idCancion=models.IntegerField()
+
+    def __str__(self):
+        return f"Album:{self.idAlbum}   Cancion {self.idCancion}"
